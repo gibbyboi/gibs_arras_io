@@ -218,7 +218,7 @@ for (let k in Class) {
     try {
         if (!Class.hasOwnProperty(k)) continue;
         let type = Class[k];
-        // Create a reference entities which we'll then take an image of.
+        // Create reference entities which we'll then take an image of.
         let temptank = new Entity({ x: 0, y: 0 });
         temptank.define(type);
         temptank.className = k;
@@ -230,12 +230,12 @@ for (let k in Class) {
         };
         // This is to pass the size information about the mockup that we didn't have until we created the mockup
         type.mockup.body.position = type.mockup.position;
-        // Add the new data to the thing.
+        // Add the new data to the array.
         mockupData.push(getMockup(temptank, type.mockup.position));
         // Kill the reference entities.
         temptank.destroy();
     } catch (error) {
-        util.error('[WARNING] An error has occured during mockup loading:');
+        util.error('[WARNING] An error has occurred during mockup loading:');
         util.error('When attempting to generate mockup "' + k + '":');
         for (let i in Class[k]) util.error("\t" + i + ": " + Class[k][i]);
         throw error;
@@ -253,9 +253,9 @@ mockupsLoaded = true;
 
 let mockupJsonData = JSON.stringify(mockupData);
 
-// Automatically write file to the client static folder (www)
+// Save mockups.json to disk
 try {
-    const outputDir = path.resolve(__dirname, '../../../../www');
+    const outputDir = path.resolve(__dirname, 'public');
     const outputPath = path.join(outputDir, 'mockups.json');
 
     if (!fs.existsSync(outputDir)) {
@@ -265,7 +265,7 @@ try {
     fs.writeFileSync(outputPath, mockupJsonData);
     console.log("[SUCCESS] Saved mockups.json to " + outputPath);
 } catch (err) {
-    console.error("[ERROR] Failed to save mockups.json to disk:", err);
+    console.error("[ERROR] Failed to save mockups.json:", err);
 }
 
 module.exports = {
