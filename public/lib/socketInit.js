@@ -758,7 +758,14 @@ const protocols = {
 };
 const socketInit = port => {
     window.resizeEvent();
-    let socket = new WebSocket(protocols[location.protocol] + window.serverAdd);
+    // let socket = new WebSocket(protocols[location.protocol] + window.serverAdd);
+    
+    // Build a dynamic URL using the current web host instead of 0.0.0.0
+const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const serverAddress = `${protocol}//${window.location.host}`;
+
+const socket = new WebSocket(serverAddress);
+    
     // Set up our socket
     socket.binaryType = 'arraybuffer';
     socket.open = false;
