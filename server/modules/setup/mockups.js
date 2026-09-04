@@ -201,13 +201,20 @@ function sizeEntity(entity, x = 0, y = 0, angle = 0, scale = 1) {
 // AYYYYYYYYY
 let mockupJsonData = JSON.stringify(mockupData);
 
-// Save directly to disk so the browser can read /mockups.json
 const fs = require('fs');
 const path = require('path');
 
 try {
-    // Saves to public/mockups.json (adjust 'public' if your static folder is named differently)
-    const outputPath = path.join(__dirname, 'public', 'mockups.json'); 
+    // Define the output folder and file path
+    const outputDir = path.join(__dirname, 'public');
+    const outputPath = path.join(outputDir, 'mockups.json');
+
+    // Create the folder if it doesn't exist yet
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+    }
+
+    // Write the file
     fs.writeFileSync(outputPath, mockupJsonData);
     console.log("[SUCCESS] Saved mockups.json to " + outputPath);
 } catch (err) {
