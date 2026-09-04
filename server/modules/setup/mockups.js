@@ -197,6 +197,32 @@ function sizeEntity(entity, x = 0, y = 0, angle = 0, scale = 1) {
         }
     }
 
+
+// AYYYYYYYYY
+let mockupJsonData = JSON.stringify(mockupData);
+
+// Save directly to disk so the browser can read /mockups.json
+const fs = require('fs');
+const path = require('path');
+
+try {
+    // Saves to public/mockups.json (adjust 'public' if your static folder is named differently)
+    const outputPath = path.join(__dirname, 'public', 'mockups.json'); 
+    fs.writeFileSync(outputPath, mockupJsonData);
+    console.log("[SUCCESS] Saved mockups.json to " + outputPath);
+} catch (err) {
+    console.error("[ERROR] Failed to save mockups.json to disk:", err);
+}
+
+module.exports = {
+    mockupJsonData
+};
+
+
+
+
+
+
     // Process turrets and props
     let turretsAndProps = entity.turrets.concat(entity.props);
     for (let t of turretsAndProps) {
