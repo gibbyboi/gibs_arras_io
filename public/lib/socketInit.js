@@ -761,8 +761,9 @@ const socketInit = port => {
     // let socket = new WebSocket(protocols[location.protocol] + window.serverAdd);
     
     // Build a dynamic URL using the current web host instead of 0.0.0.0
-const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-const serverAddress = `${protocol}//${window.location.host}`;
+//const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const protocol = protocols[window.location.protocol] || "wss://";
+const serverAddress = `${protocol}${window.location.host}`;
 
 const socket = new WebSocket(serverAddress);
     
