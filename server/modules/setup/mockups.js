@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 // Define mocking up functions
 function getMockup(e, positionInfo) {
     let turretsAndProps = e.turrets.concat(e.props);
@@ -197,39 +200,6 @@ function sizeEntity(entity, x = 0, y = 0, angle = 0, scale = 1) {
         }
     }
 
-
-// AYYYYYYYYY
-let mockupJsonData = JSON.stringify(mockupData);
-
-const fs = require('fs');
-const path = require('path');
-
-try {
-    // Define the output folder and file path
-    const outputDir = path.join(__dirname, 'public');
-    const outputPath = path.join(outputDir, 'mockups.json');
-
-    // Create the folder if it doesn't exist yet
-    if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
-    }
-
-    // Write the file
-    fs.writeFileSync(outputPath, mockupJsonData);
-    console.log("[SUCCESS] Saved mockups.json to " + outputPath);
-} catch (err) {
-    console.error("[ERROR] Failed to save mockups.json to disk:", err);
-}
-
-module.exports = {
-    mockupJsonData
-};
-
-
-
-
-
-
     // Process turrets and props
     let turretsAndProps = entity.turrets.concat(entity.props);
     for (let t of turretsAndProps) {
@@ -282,6 +252,21 @@ console.log("Server loaded in " + util.rounder(mockupsLoadEndTime, 4) + " millis
 mockupsLoaded = true;
 
 let mockupJsonData = JSON.stringify(mockupData);
+
+// Automatically write file to the client static folder (www)
+try {
+    const outputDir = path.resolve(__dirname, '../../../../www');
+    const outputPath = path.join(outputDir, 'mockups.json');
+
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+    }
+
+    fs.writeFileSync(outputPath, mockupJsonData);
+    console.log("[SUCCESS] Saved mockups.json to " + outputPath);
+} catch (err) {
+    console.error("[ERROR] Failed to save mockups.json to disk:", err);
+}
 
 module.exports = {
     mockupJsonData
