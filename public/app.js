@@ -679,9 +679,11 @@ function startGame() {
     setTimeout(() => {
         document.getElementById("startMenuWrapper").remove();
     }, 1e3);
-    // Set up the socket
+// blablabla
+// Set up the socket
     if (!global.socket) {
-        global.socket = socketInit(26301);
+        const PORT = process.env.PORT ? parseInt(process.env.PORT) : 26301;
+        global.socket = socketInit(PORT);
     }
     if (!global.animLoopHandle) {
         animloop();
