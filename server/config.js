@@ -1,19 +1,21 @@
 module.exports = {
     // Server
 
-    // Game server domain.
-    // If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
-    host: "localhost:26301",
+    // Game server domain. 
+    // Set to 0.0.0.0 so Render routes incoming traffic to the container correctly.
+    host: "0.0.0.0",
 
     // Which port to run the web server on.
-    port: 26301,
+    // Dynamic binding to process.env.PORT is required for cloud hosting on Render.
+    port: process.env.PORT || 26301,
 
     // How often to update the list of the entities that players can see.
     // Has effects of when entities are activated.
     visibleListInterval: 250,
 
     // How long (in ms) a socket can be disconnected without their player dying.
-    maxHeartbeatInterval: 300000,
+    // Lowered slightly to help clean up dropped proxy connections on Render.
+    maxHeartbeatInterval: 60000,
 
     // Flatten entity definition, which gets rid of PARENT attributes and applies the parents' attributes to the entity definition, if they're not set in the entity already.
     flattenDefintions: false,
@@ -255,4 +257,4 @@ module.exports = {
     MODE: "ffa",
     TAG: false,
     SPAWN_CONFINEMENT: {},
-}
+};
