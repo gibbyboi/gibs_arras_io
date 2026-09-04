@@ -6,8 +6,8 @@ module.exports = {
     host: "0.0.0.0",
 
     // Which port to run the web server on.
-    // Dynamic binding to process.env.PORT is required for cloud hosting on Render.
-    port: process.env.PORT || 26301,
+    // Parsed as an integer to prevent Render environment string mismatches.
+    port: parseInt(process.env.PORT) || 3000,
 
     // How often to update the list of the entities that players can see.
     // Has effects of when entities are activated.
