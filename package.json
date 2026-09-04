@@ -3,12 +3,7 @@
   "version": "1.0.0",
   "main": "server/index.js",
   "scripts": {
-    "start": "node --max-old-space-size=350 --optimize-for-size server/index.js",
-    "startOptimized": "node --max-old-space-size=350 --optimize-for-size --no-lazy --gc_interval=120 server/index.js",
-    "restartOnSaveOptimized": "node --max-old-space-size=350 --optimize-for-size --no-lazy --gc_interval=120 --watch server/index.js",
-    "startOriginal": "node server/index",
-    "restartOnSave": "node --watch server/index",
-    "host": "node standaloneClient/index",
+    "start": "node --max-old-space-size=350 server/index.js",
     "build": "node standaloneClient/build minify"
   },
   "dependencies": {
